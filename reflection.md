@@ -1,16 +1,16 @@
 # A Recommendation Algorithm for Spotify Users
 
-Music is one of the rare forms of communication that can be understood on a profound level by anyone; it has the power to cause significant emotional effects, to spark inspiration, to ignite change, to spread knowledge, and more, even regardless of song language. Music’s influence is ever-growing, and its unique powers have become significantly more relevant throughout the COVID-19 pandemic. As communities shut down and governments issued lockdown orders, music played a more significant role for many people wishing to take advantage of their isolation and extra time. Studies in Spain and Israel have demonstrated that, during the pandemic, people have turned to music more than average, whether it be listening to songs, playing an instrument, or watching a livestream (Cabedo, Ziv). 
+Music is one of the rare forms of communication that can be understood on a profound level by anyone; it has the power to cause significant emotional effects, to spark inspiration, to ignite change, to spread knowledge, and more, even regardless of song language. Music’s influence is ever-growing, and its unique powers have become significantly more relevant throughout the COVID-19 pandemic. As communities shut down and governments issued lockdown orders, music played a more significant role for many people wishing to take advantage of their isolation and extra time. Studies in Spain and Israel have demonstrated that, during the pandemic, people have turned to music more than average, whether it be listening to songs, playing an instrument, or watching a livestream (Cabedo-Mas, Ziv). 
 
 With so many people interacting with music, it is natural that many would be searching for new music to listen to. This raises some interesting questions. How do we recommend new music to people? What variables need to be considered in order to provide a good reccommendation? What exactly is a good recommendation and how can we be certain a listener agrees? Can user satisfaction of recommendations improve if a user is given control over how their recommendations are created?
 
 Spotify users may be familiar with current Spotify-provided personalized recommendation systems. One, Discover Weekly provides listeners with new songs they haven't heard before and another, Release Radar, provides recently-released songs that a listeners might enjoy. Both playlists give 30 songs once a week and are the result of a complex algorithm. The exact methods used to construct this algorithm are private to Spotify as are the variables considered in recommendation; therefore, conducting research with Spotify-provided recommendations is difficult. Researchers would have no control over any part of the process and would be unable to manipulate an independent variable.
 
-While this algorithm is not as complex nor as effecient as those from Spotify, it does allow researchers to have some freedom in choosing which/how many variables to manipulate. Outside of research, the goals of this program are to provide a new way for users to find new music without having to wait a whole week and to make those recommendations as accurate as possible. In other words, we want to minimize the number of recommended songs that a user did not enjoy and to recommend as many songs as possible that a user will enjoy. A few sub-goals follow: 
+While the present algorithm is not as complex nor as effecient as those from Spotify, it does allow researchers to have some freedom in choosing which/how many variables to manipulate. Outside of research, the goals of this program are to provide a new way for users to find new music without having to wait a whole week and to make those recommendations as accurate as possible. In other words, we want to minimize the number of recommended songs that a user did not enjoy and to recommend as many songs as possible that a user will enjoy. A few sub-goals follow: 
 
 * We want to avoid recommending only Top-40 songs (unless this is what *should* be recommended)
 * We want to recommend songs that a user does not already have saved in their library
-* We want to recommend songs that a user has not heard before (see Limitations for more on this)
+* We want to recommend songs that a user has not heard before (see [Limitations](#limitations) for more on this)
 
 In general, we are interested if, as mentioned above, giving a user some control over how their recommendations are created leads to higher overall satisfaction with those recommendations. 
 
@@ -34,9 +34,9 @@ At the end of the program, all user data and track information is erased. Should
 
 ## The Process
 
-The idea behind this project was to provide insight into how different methods of recommendation affect user satisfaction with recommended products. Specifically we explore music recommendation and satisfaction with a recommended playlist and were interested in how satisfaction of a playlist changes when a user has some control over how the playlist is formed. To investigate this, we created nine different groups, each with a slightly different recommendation process. The first group is a control group where a user is simply assigned 30 random recommendations from a list. The remaining groups rely on a K-Means clustering algorithm and differ in terms of the type of data used to cluster (numeric vs. numeric/ordinal/nominal), the distance metric used (euclidean vs. random other metric), and whether a user is able to contribute to the recommendation process (by rating the importance of certain variables). The K-Means algorithm from the [`pyclustering` package](https://github.com/annoviko/pyclustering) is used as it allows for custom definitions of distance metrics. 
+The idea behind this project was to provide insight into how different methods of recommendation affect user satisfaction with recommended products. Specifically we explore music recommendation and satisfaction with a recommended playlist and were interested in how satisfaction of a playlist changes when a user has some control over how the playlist is formed. To investigate this, we created nine different groups, each with a slightly different recommendation process. The first group is a control group where a user is simply assigned 30 random recommendations from a list. The remaining groups rely on a K-Means clustering algorithm and differ in terms of the type of data used to cluster (numeric vs. numeric/ordinal/nominal), the distance metric used (euclidean vs. random other metric), and whether a user is able to contribute to the recommendation process (by rating the importance of certain variables). The K-Means algorithm from the [`pyclustering` package](https://github.com/annoviko/pyclustering) is used as it allows for custom definitions of distance metrics. We chose K-Means due to the unsupervised nature of this project; although we know what songs a user likes, we don't know which songs the user does not like (we cannot assume they dislike every song not in their library). 
 
-Possible distance metrics currently include manhattan (city-block), euclidean, canberra, chebyshev, minkowski with degree 6, and minkowski with degree 12. Variables used in clustering are as follows (note that some groups only consider the quantitative variabes while others consider all variables). Variables with an asterisk (*) indicate that variable affected by user input.
+Possible distance metrics currently include manhattan (city-block), euclidean, canberra, chebyshev, minkowski with degree 6, and minkowski with degree 12. Variables used in clustering are as follows (note that some groups only consider the quantitative variabes while others consider all variables). Variables with an asterisk (*) indicate that variable could be affected by user input.
 
 | Variable Name       | Type | Values     | Brief Description                                                   |
 |---------------------|------|------------|---------------------------------------------------------------------|
@@ -66,7 +66,7 @@ What happens when the program is run depends on random choice. The program is de
 
 3. For each playlist to be analyzed, the program collects all of the songs in the playlist and removes the duplicates, creating a master list of all songs a user is known to "like" (or like enough to add to their library).
 
-4. For each song in the master list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.)
+4. For each song in the master list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe $30*\text{number of tracks in library} - \text{duplicates}$ potential recommendations is enough to imitate such a list, at least for the purposes of this program.
 
 It is not necessary to recommend all of the songs in this list (e.g., this could mean recommending at least 20,000 songs). Thus the goal is now to determine the best songs out of the list to recommend. 
 
@@ -88,9 +88,11 @@ Without weights, standardization is done with `scikit-learn`'s `StandardScaler` 
 
 ![Figure 1: A flowchart of the nine possible groups.](recommender_groups.svg)
 
+For all groups except group 1, recommendations are chosen after clustering proportional to the number of saved songs in each cluster. In other words, if 28% of songs in a user's library are predicted to be in cluster #2, then 28% of the recommended songs will also come from cluster #2. Final playlists should end up with 30 recommended songs (like the Spotify-provided playlists); however, due to rounding 29 or 31 songs may occur.
+
 ## Basic Testing of the Program
 
-It is predicted that group 1 would bring the least user satisfaction and group 9 would bring the most. Overall, euclidean distance would outperform other distances, including all variables would outperform just numeric variables, and allowing for user weights would outperform the contrary. Tests were not performed in an experimental setting and therefore cannot be taken too seriously; however, the tests that were done were enough to verify that the program was working as expected.
+It is predicted that group 1 would bring the least user satisfaction and group 7 would bring the most. Overall, euclidean distance would outperform other distances, including all variables would outperform just numeric variables, and allowing for user weights would outperform the contrary. Tests were not performed in an experimental setting and therefore cannot be taken too seriously; however, the tests that were done were enough to verify that the program was working as expected.
 
 For basic tests of all groups, five playlists were created:
 1. A duplicate of one of my playlists (to emulate a natural playlist "environment")
@@ -131,4 +133,14 @@ An experiment of this sort is not in the current scope of the project nor its fu
 * Add more possible distance metrics
 * Reduce the time it takes to complete the recommendation process
 * Adding more specific comments throughout the code to help guide other developers
-* Build in a semi-supervised learning option
+* Add error handling mechanisms to avoid unnessecary stopping
+* Build in a semi-supervised learning option incorporating user feedback to generate a new playlist
+* Improve the code that removes any to-be-recommended songs already in a user's library
+  * Currently relies on unique track ids but it is possible for the same track to have a different id, such as Blank Space from Taylor Swift's 1989 and Blank Space from Taylor Swfit's 1989 (Deluxe)
+
+## References
+A. Cabedo-Mas, C. Arriaga-Sanz, and L. Moliner-Miravet, “Uses and Perceptions of Music in Times of COVID-19: A Spanish Population Survey,” Front Psychol, vol. 11, p. 606180, Jan. 2021, doi: 10.3389/fpsyg.2020.606180.
+
+Novikov, A., 2019. PyClustering: Data Mining Library. Journal of Open Source Software, 4(36), p.1230. Available at: (http://dx.doi.org/10.21105/joss.01230).
+
+N. Ziv and R. Hollander-Shabtai, “Music and COVID-19: Changes in uses and emotional reaction to music under stay-at-home restrictions,” Psychology of Music, p. 03057356211003326, Apr. 2021, doi: 10.1177/03057356211003326.
