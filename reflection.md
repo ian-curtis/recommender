@@ -68,7 +68,7 @@ What happens when the program is run depends on random choice. The program is de
 
 4. For each song in the master list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe 
 
-$$30*\text{number of tracks in library} - \text{duplicates}$$ 
+$30*\text{number of tracks in library} - \text{duplicates}$ 
 
 potential recommendations is enough to imitate such a list, at least for the purposes of this program.
 
