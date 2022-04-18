@@ -66,7 +66,11 @@ What happens when the program is run depends on random choice. The program is de
 
 3. For each playlist to be analyzed, the program collects all of the songs in the playlist and removes the duplicates, creating a master list of all songs a user is known to "like" (or like enough to add to their library).
 
-4. For each song in the master list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe $$30*\text{number of tracks in library} - \text{duplicates}$$ potential recommendations is enough to imitate such a list, at least for the purposes of this program.
+4. For each song in the master list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe 
+
+$$30*\text{number of tracks in library} - \text{duplicates}$$ 
+
+potential recommendations is enough to imitate such a list, at least for the purposes of this program.
 
 It is not necessary to recommend all of the songs in this list (e.g., this could mean recommending at least 20,000 songs). Thus the goal is now to determine the best songs out of the list to recommend. 
 
