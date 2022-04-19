@@ -1,3 +1,5 @@
+# This code is licensed with an MIT license
+
 # import modules, prep spotipy oauth
 
 import spotipy
@@ -476,17 +478,17 @@ if __name__ == '__main__':
     if silhouette:
       silhouette_plot(metric, scaled_data)
 
-    if elbow and algo == 'sklearn':
-      distortions = []
-      for k in range(2, 15):
-        kmeans = KMeans(n_clusters=k, random_state=10, init='k-means++')
-        kmeans.fit(scaled_data)
-        distortions.append(kmeans.inertia_)
+    # if elbow and algo == 'sklearn':
+    #   distortions = []
+    #   for k in range(2, 15):
+    #     kmeans = KMeans(n_clusters=k, random_state=10, init='k-means++')
+    #     kmeans.fit(scaled_data)
+    #     distortions.append(kmeans.inertia_)
 
-      fig = plt.figure(figsize=(15, 5))
-      plt.plot(range(2, 15), distortions)
-      plt.grid(True)
-      plt.title('Elbow curve')
+    #   fig = plt.figure(figsize=(15, 5))
+    #   plt.plot(range(2, 15), distortions)
+    #   plt.grid(True)
+    #   plt.title('Elbow curve')
 
   def detect_outlier(scaled_data, combined_df):
     '''
