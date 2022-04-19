@@ -141,6 +141,7 @@ An experiment of this sort is not in the current scope of the project nor its fu
 * Build in a semi-supervised learning option incorporating user feedback to generate a new playlist
 * Improve the code that removes any to-be-recommended songs already in a user's library
   * Currently relies on unique track ids but it is possible for the same track to have a different id, such as Blank Space from Taylor Swift's 1989 and Blank Space from Taylor Swfit's 1989 (Deluxe)
+* Turn code into a more object-oriented approach
 
 ## References
 A. Cabedo-Mas, C. Arriaga-Sanz, and L. Moliner-Miravet, “Uses and Perceptions of Music in Times of COVID-19: A Spanish Population Survey,” Front Psychol, vol. 11, p. 606180, Jan. 2021, doi: 10.3389/fpsyg.2020.606180.
