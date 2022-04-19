@@ -228,7 +228,7 @@ if __name__ == '__main__':
         decade,
         half_decade,
         len(track['artists']),
-        round(track['duration_ms']/60000, 4),
+        track['duration_ms'],
         track['popularity'],
         features[0]['danceability'],
         features[0]['energy'],
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     # Create final data frame with proper column names
     df = pd.DataFrame(data, columns=[
       'uri', 'track_name', 'in_library', 'artist_followers', 'genre', 'artist_popularity', 'explicit', 'release_date', 
-      'year', 'decade', 'half_decade', 'nartists', 'duration_m', 'track_popularity', 'danceability', 'energy',
+      'year', 'decade', 'half_decade', 'nartists', 'duration_ms', 'track_popularity', 'danceability', 'energy',
       'key', 'key_conf', 'loudness', 'mode', 'mode_conf', 'speechiness', 'acousticness', 'instrumentalness',
       'liveness', 'valence', 'tempo', 'tempo_conf', 'time_sig', 'time_sig_conf', 'nsamples', 'nbars',
       'nbeats', 'nsections', 'nsegments', 'ntatums'
