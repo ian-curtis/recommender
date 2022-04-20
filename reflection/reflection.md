@@ -1,6 +1,6 @@
 # A Recommendation Algorithm for Spotify Users
 
-This project was my submission to the Grand Valley State University Honors College senior project. All code in the [GitHub repository](https://github.com/ian-curtis/recommender) is licensed under an [MIT license](LICENSE).
+This project was my submission to the Grand Valley State University Honors College senior project under mentor Dr. Erin Carrier. All code in the [GitHub repository](https://github.com/ian-curtis/recommender) is licensed under an [MIT license](LICENSE).
 
 Music is one of the rare forms of communication that can be understood on a profound level by anyone; it has the power to cause significant emotional effects, to spark inspiration, to ignite change, to spread knowledge, and more, even regardless of song language. Music’s influence is ever-growing, and its unique powers have become significantly more relevant throughout the COVID-19 pandemic. As communities shut down and governments issued lockdown orders, music played a more significant role for many people wishing to take advantage of their isolation and extra time. Studies in Spain and Israel have demonstrated that, during the pandemic, people have turned to music more than average, whether it be listening to songs, playing an instrument, or watching a livestream (Cabedo-Mas, Ziv). 
 

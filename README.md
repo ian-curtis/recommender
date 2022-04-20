@@ -1,6 +1,6 @@
 # Spotify User Satisfaction With Recommended Playlists
 
-This project was my submission for the Grand Valley State University Honors College senior project. All code in this repository is licensed under an [MIT license](LICENSE).
+This project was my submission to the Grand Valley State University Honors College senior project under mentor Dr. Erin Carrier. All code in this repository is licensed under an [MIT license](LICENSE).
 
 The program found in `main.py` contains code for an algorithm that recommends new songs to Spotify users. Identical code is found in `main.ipynb` but is broken up into mangageable chunks so that the entire program does not have to be run at once. The process is explained in more detail below in the [reflection](reflection.md) file. Note that there may be differences between `testing.ipynb` and `main.py`/`main.ipynb`. The most up-to-date and working code is in the `main.*` files; `testing.ipynb` is used for testing new features and the effectiveness of the algorithm. A planned feature is to have the algorithm give users random fun facts about their listening habits. This is not currently implemented, but when it is, necessary code will update in `facts.ipynb` and `facts.py`. (Note that this will likely require a conversion to object-oriented programming, another planned feature.)
 
