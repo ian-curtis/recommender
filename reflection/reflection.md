@@ -68,7 +68,7 @@ What happens when the program is run mostly depends on random selection. The pro
 
 3. For each playlist to be analyzed, the program collects all of the songs in the playlist and removes the duplicates, creating a master list of all songs a user is known to "like" (or like enough to add to their library).
 
-4. For each song in this list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe ![Number of potential recommendations](equation.svg) potential recommendations is enough to imitate such a list, at least for the purposes of this program.
+4. For each song in this list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe ![Number of potential recommendations](equation.svg) potential recommendations is enough to imitate such a list, at least for the purposes of this program. However, it is a parameter in a function so others may decide to use a different value.
 
 It is not necessary to recommend all of the songs in this list (e.g., this could mean recommending over 20,000 songs). Thus the goal is now to determine the best songs out of the list to recommend. 
 
@@ -143,7 +143,7 @@ An experiment of this sort is not in the current scope of the project nor its fu
 * Add in small facts about a user's library and top tracks while they wait for the algorithm to finish (in progress)
 * Add more possible distance metrics
 * Reduce the time it takes to complete the recommendation process
-* Adding more specific comments throughout the code to help guide other developers
+* Adding more specific comments throughout the code (especially functions) to help guide other developers
 * Add error handling mechanisms to avoid unnessecary stopping
 * Build in a semi-supervised learning option incorporating user feedback to generate a new playlist
 * Improve the code that removes any to-be-recommended songs already in a user's library
