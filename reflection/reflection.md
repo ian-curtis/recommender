@@ -143,7 +143,7 @@ An experiment of this sort is not in the current scope of the project nor its fu
 * Add in small facts about a user's library and top tracks while they wait for the algorithm to finish (in progress)
 * Add more possible distance metrics
 * Reduce the time it takes to complete the recommendation process
-* Adding more specific comments throughout the code to help guide other developers
+* Adding more specific comments throughout the code (especially functions) to help guide other developers
 * Add error handling mechanisms to avoid unnessecary stopping
 * Build in a semi-supervised learning option incorporating user feedback to generate a new playlist
 * Improve the code that removes any to-be-recommended songs already in a user's library

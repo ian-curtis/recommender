@@ -18,3 +18,17 @@ client_secret = <your-app-secret>
 ```
 
 where the values in brackets would be replaced with a string of your newly-created app's ID and secret. The app should run as expected, provided that the user has a Spotify account and preferably at least 30 songs saved in their library (i.e., in playlists), although the app should still function with as low as 1 song saved.
+
+## Future Work
+* Incorporate the code into a web application where users can run the app without installing Python (this may involve switching to R and Shiny apps)
+* Build in a way to include track genres
+* Support data for tracks with more than one artist
+* Add in small facts about a user's library and top tracks while they wait for the algorithm to finish (in progress)
+* Add more possible distance metrics
+* Reduce the time it takes to complete the recommendation process
+* Adding more specific comments throughout the code (especially functions) to help guide other developers
+* Add error handling mechanisms to avoid unnessecary stopping
+* Build in a semi-supervised learning option incorporating user feedback to generate a new playlist
+* Improve the code that removes any to-be-recommended songs already in a user's library
+  * Currently relies on unique track ids but it is possible for the same track to have a different id, such as Blank Space from Taylor Swift's 1989 and Blank Space from Taylor Swift's 1989 (Deluxe)
+* Turn code into a more object-oriented approach
