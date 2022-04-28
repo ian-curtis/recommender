@@ -111,12 +111,12 @@ For replication purposes, these playlists are included in `testing.ipynb`. Tests
 * 0.5 points were added for listening to the full track and it was a good song
 * 0.2 points were added for listening to the full track and it was not a good song
 * 1 point was deducted for skipping a track
-* 1 point was deducted if the track was already in their playlist
+* 1 point was deducted if the track was already in their playlist regardless of rating
 * 0.2 points were deducted if the track had already been heard
 
-The goal was to get a playlist with a score of 30, indicating that each song in the playlist was new to the user and was worth adding to a playlist.
+Scoring criteria could not occur simultaneously except for if the track had already been heard. For instance, if a user listened to a full track and it was a good song but had already heard the song, 0.5 points were added *and* 0.2 points were deducted. The goal was to get a p  laylist with a score of 30, indicating that each song in the playlist was new to the user and was worth adding to a playlist.
 
-These preliminary tests (n = 5) of groups shows does seem to be in favor of some hypotheses. Of course this must be taken with skepticism as there was no attempt to control for any other factors. One participant in group 3 scored a -2.6 which was higher than the participant assigned to group 2 with a score of -5.9, as predicted. Two were assigned to group 9 with minkowski degree 12 distance and scores were -10.2 and -3. The participant assigned to group 7 scored a ### which goes against the hypotheses. It would be better to see a positive score in this group (meaning more songs enjoyed).
+These preliminary tests (n = 5) of groups shows does seem to be in favor of some hypotheses. Of course this must be taken with skepticism as there was no attempt to control for any other factors. One participant in group 3 scored a -2.6 which was higher than the participant assigned to group 2 with a score of -5.9, as predicted. Two were assigned to group 9 with minkowski degree 12 distance and scores were -10.2 and -3. The participant assigned to group 7 scored higher with a score of 1.1 which does follow the hypotheses. No analysis was done to see if these scores differed significantly.
 
 ## Limitations
 
