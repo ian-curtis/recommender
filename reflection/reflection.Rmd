@@ -1,4 +1,10 @@
-# The Quest for New Music: A Recommendation Algorithm for Spotify Users
+---
+title: 'The Quest for New Music: A Recommendation Algorithm for Spotify Users'
+author: 'Ian Curtis'
+output:
+  pdf_document: default
+  html_document: default
+---
 
 This project was my submission to the Grand Valley State University Honors College senior project under mentor Dr. Erin Carrier. All code in the [GitHub repository](https://github.com/ian-curtis/recommender) is licensed under an [MIT license](https://github.com/ian-curtis/recommender/blob/main/LICENSE).
 
@@ -16,25 +22,25 @@ While the present algorithm is not as complex nor as efficient as those from Spo
 
 In general, we are interested if, as mentioned above, giving a user some control over how their recommendations are created leads to higher overall satisfaction with those recommendations.
 
-## Prerequisites
+# Prerequisites
 
 This program is not currently available on the web and is not able to be easily run by an individual user. The app requires an API id and secret, both of which are hidden for security purposes. Should anyone wish to run the app for themselves, they would need to have an installation of Python, a nice text editor (such as Visual Studio Code), and a familiarity with how to use Git/GitHub and run a Python program. They then might create clone this repository by the instructions in the README file and the [code's GitHub repository](https://github.com/ian-curtis/recommender).
 
-## Data and Permissions Required
+# Data and Permissions Required
 
 In order to run this app, a user must give it permission to access their profile data as well as the songs in their library. The app can only access the information a user permits it too. As such, we have chosen only the permissions necessary for the app to run, ensuring that no excess data is used. This app uses the following scopes (followed by their purpose):
 
 | Scope Name               | Reason                                                                                                                                            |
 |--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `user-library-read`      | Allows the app to collect songs in a user's library from playlists marked as "public" or "collaborative"                                          |
-| `playlist-read-private`  | Allows the app to collect songs in a user's library from playlists marked as "private"                                                            |
-| `playlist-modify-public` | Allows the app to create a new playlist, modify the title/description, and add new songs                                                          |
-| `user-read-private`      | Allows the app to read private profile data. The app only uses information user country and whether or a not a user can listen to explicit music. |
-| `user-top-read`          | Allows the app to read a user's top tracks and top artists                                                                                        |
+| `user-library- read`      | Allows the app to collect songs in a user's library from playlists marked as "public" or "collaborative"                                          |
+| `playlist-read- private`  | Allows the app to collect songs in a user's library from playlists marked as "private"                                                            |
+| `playlist- modify-public` | Allows the app to create a new playlist, modify the title/description, and add new songs                                                          |
+| `user-read- private`      | Allows the app to read private profile data. The app only uses information user country and whether or a not a user can listen to explicit music. |
+| `user-top- read`          | Allows the app to read a user's top tracks and top artists                                                                                        |
 
 At the end of the program, all user data and track information is erased. Should a user want more recommendations, they would need to run the app again (those using the algorithm for personal use might comment out the data erasing code). The app does not modify any old playlists, even playlists it has already created, but will instead always create a new one (Spotify playlists can have the same name; each new playlist has a unique identifier allowing for this).
 
-## The Process
+# The Process
 
 The idea behind this project was to provide insight into how different methods of recommendation affect user satisfaction with recommended products. Specifically we explore music recommendation and satisfaction with a recommended playlist and we were interested in how satisfaction of a playlist changes when a user has some control over how the playlist is formed. To investigate this, we created nine different groups, each with a slightly different recommendation process. The first group is a control group where a user is simply assigned 30 random recommendations from a list. The remaining groups rely on a K-Means clustering algorithm and differ in terms of the type of data used to cluster (numeric vs. numeric/ordinal/nominal), the distance metric used (euclidean vs. random other metric), and whether a user is able to contribute to the recommendation process (by rating the importance of certain numeric variables). The K-Means algorithm from the [`pyclustering` package](https://github.com/annoviko/pyclustering) is used as it allows for custom definitions of distance metrics [2]. We chose K-Means due to the unsupervised nature of this project; although we know what songs a user likes, we don't know which songs the user does not like (and we cannot assume they dislike every song not in their library).
 
@@ -68,7 +74,7 @@ What happens when the program is run mostly depends on random selection. The pro
 
 3. For each playlist to be analyzed, the program collects all of the songs in the playlist and removes the duplicates, creating a master list of all songs a user is known to "like" (or like enough to add to their library).
 
-4. For each song in this list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe ![Number of potential recommendations](equation.svg) potential recommendations is enough to imitate such a list, at least for the purposes of this program. However, it is a parameter in a function so others may decide to use a different value.
+4. For each song in this list, 30 recommendations are generated from a built-in recommendation algorithm and duplicates are removed. (Note: the algorithm used to generate these recommendations is not known.) This is done because we need a collection of songs from which to recommend. Since we do not have access to every song on Spotify, we believe $30*\text{Number of Tracks in Library} - \text{Duplicates}$ potential recommendations is enough to imitate such a list, at least for the purposes of this program. However, it is a parameter in a function so others may decide to use a different value.
 
 It is not necessary to recommend all of the songs in this list (e.g., this could mean recommending over 20,000 songs). Thus the goal is now to determine the best songs out of the list to recommend.
 
@@ -88,11 +94,16 @@ For groups 4, 5, 8, and 9, the other possible distance metrics are currently man
 
 Without weights, standardization is done with `scikit-learn`'s `StandardScaler` (for quantitative variables), `OrdinalEncoder` (for ordinal variables), and `OneHotEncoder` (for nominal variables). Users are only asked to provide weights for five numeric variables; thus, only the quantitative standardization is affected. In cases were users provide weights, all scaled values on each of the five rated variables are multiplied by the square root of the supplied weight. All outliers are removed before a playlist is created no matter the group. There are typically enough potential recommendations that outlier removal is helpful for the K-Means algorithm.
 
-![Figure 1: A flowchart of the nine possible groups.](recommender_groups.svg)
+```{r figSvg, eval=TRUE,echo=FALSE,message=FALSE, error=FALSE, warning=FALSE,fig.height=10}
+library(magick)
+library(cowplot)
+fig_svg<-cowplot::ggdraw()+cowplot::draw_image("recommender_groups.svg")
+plot(fig_svg)
+```
 
 For all groups except group 1, recommendations are chosen after clustering proportional to the number of saved songs in each cluster. For example, if 28% of songs in a user's library are predicted to be in cluster #2, then 28% of the recommended songs will also come from cluster #2. Final playlists should end up with 30 recommended songs (like the Spotify-provided playlists); however, due to rounding 29 or 31 songs may occur.
 
-## Basic Testing of the Program
+# Basic Testing of the Program
 
 Singh et al. (2013), in dummy simulations with three different distance metrics, demonstrated that euclidean distance performs better in terms of the least distortion while other distance metrics (manhattan and minkowski in this case) fall behind [3]. It follows that including all variables (rather than just numeric) will lead to a better clustering output and user satisfaction. As such, it is predicted that group 1 would bring the least user satisfaction and group 7 would bring the most. However, will these trends remain when a user is given more control over the recommendation process?
 
@@ -118,7 +129,7 @@ Scoring criteria could not occur simultaneously except for if the track had alre
 
 These preliminary tests (n = 5) of groups shows does seem to be in favor of some hypotheses. Of course this must be taken with skepticism as there was no attempt to control for any other factors. One participant in group 3 scored a -2.6 which was higher than the participant assigned to group 2 with a score of -5.9, as predicted. Two were assigned to group 9 with minkowski degree 12 distance and scores were -10.2 and -3. The participant assigned to group 7 scored higher with a score of 1.1 which does follow the hypotheses. No analysis was done to see if these scores differed significantly or if these phenomena are reproducible.
 
-## Limitations
+# Limitations
 
 There are certain limitations to this project mostly due to the type of data accessible. Developers using the Spotify API only have access to certain track attributes. Missing notably is song language. We believe that knowing the language of a track provides additional insight into the songs a user enjoys and could help the clustering accuracy; however, this information is not provided by Spotify.
 
@@ -129,7 +140,7 @@ Additionally, all data is taken from the Spotify API meaning that we are trustin
 In order to recommend songs, we need a list of possible songs to recommend. Then, by analyzing trends in a user's library, we can pick out the best to recommend. Ideally, we would have a list of every possible song on Spotify and pick from there. However, this list is not available to the public. Thus, we claim that by generating 30 recommendations for every 1 saved song (and removing duplicates) we can emulate such a list. It is, however, not known what the recommendation generation algorithm does or how it works.
 
 
-## Future Work / Potential Applications
+# Future Work / Potential Applications
 
 The original time allotted for this project (one semester) was not enough to design, run, and complete any full experimental studies. However, the code has the potential to be used in such a setting. The intial inspiration for this project came from questioning the effectiveness of different types of recommendation algorithms. Are consumers more likely to purchase an item if they have control over how their recommendations were created? In other words, can giving consumers direct input into their recommendations help to increase the satisfaction with those recommendations and increase the chances that they purchase a recommended item?
 
@@ -153,7 +164,7 @@ An experiment of this sort is not in the current scope of the project nor its fu
 * Turn code into a more object-oriented approach
 * Fix explicit filter
 
-## References
+# References
 [1] A. Cabedo-Mas, C. Arriaga-Sanz, and L. Moliner-Miravet, “Uses and Perceptions of Music in Times of COVID-19: A Spanish Population Survey,” *Front Psychol*, vol. 11, Jan. 2021, doi: [10.3389/fpsyg.2020.606180](https://doi.org/10.3389/fpsyg.2020.606180).
 
 [2] Novikov, A., 2019. PyClustering: Data Mining Library. Journal of Open Source Software, 4(36), p.1230. Available at: [http://dx.doi.org/10.21105/joss.01230](http://dx.doi.org/10.21105/joss.01230).
